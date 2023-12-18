@@ -82,7 +82,7 @@ router.post('/signup', (req, res) => {
             console.log(err);
             res.json({
                 status: "FAILED",
-                message: "An error occured while checking."
+                message: "Something went wrong during signup."
             })
         })
     }
