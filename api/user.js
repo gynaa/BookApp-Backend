@@ -39,7 +39,6 @@ router.post('/signup', (req, res) => {
         //check if user already exists
 
         User.find({email}).then(result => {
-            console.log('Retrieved data from MongoDB:', data);
             if(result.length){
                 res.json({
                     status: "FAILED",
