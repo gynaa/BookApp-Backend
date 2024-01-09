@@ -145,4 +145,20 @@ router.post('/signin', (req, res) => {
 
 })
 
+//Profile
+
+router.patch('/profile', (req, res) => {
+    try {
+        let{bio} = req.body;
+        const updatedUser = User.findByIdAndUpdate(
+          req.params.userId,
+          { bio},
+          { new: true }
+        );
+        res.json(updatedUser);
+      } catch (error) {
+        res.status(400).json({ message: error.message });
+      }
+})
+
 module.exports = router;
