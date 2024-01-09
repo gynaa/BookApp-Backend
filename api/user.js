@@ -152,7 +152,7 @@ router.patch('/profile/659d40da3d8353ff0483fa16', async (req, res) => {
         const { bio } = req.body;
     
         const updatedUser = await User.findByIdAndUpdate(
-          659d40da3d8353ff0483fa16,
+          ObjectId(req.params.userId),
           { bio },
           { new: true }
         );
