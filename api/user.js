@@ -149,9 +149,9 @@ router.post('/signin', (req, res) => {
 
 router.patch('/profile', (req, res) => {
     try {
-        let{bio} = req.body;
+        let{_id, bio} = req.body;
         const updatedUser = User.findByIdAndUpdate(
-          req.params.userId,
+          _id,
           { bio},
           { new: true }
         );
