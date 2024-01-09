@@ -147,11 +147,11 @@ router.post('/signin', (req, res) => {
 
 //Profile
 
-router.patch('/profile', (req, res) => {
+router.patch('/profile/659d40da3d8353ff0483fa16', (req, res) => {
     try {
-        let{_id, bio} = req.body;
+        let{bio} = req.body;
         const updatedUser = User.findByIdAndUpdate(
-          _id,
+          req.params.userId,
           { bio},
           { new: true }
         );
