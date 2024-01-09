@@ -147,14 +147,20 @@ router.post('/signin', (req, res) => {
 
 //Profile
 
-router.patch('/profile/659d40da3d8353ff0483fa16', (req, res) => {
+router.patch('/profile/659d40da3d8353ff0483fa16', async (req, res) => {
     try {
-        let{bio} = req.body;
-        const updatedUser = User.findByIdAndUpdate(
+        const { bio } = req.body;
+    
+        const updatedUser = await User.findByIdAndUpdate(
           req.params.userId,
-          { bio},
+          { bio },
           { new: true }
         );
+    
+        if (!updatedUser) {
+          return res.status(404).json({ message: 'User not found' });
+        }
+    
         res.json(updatedUser);
       } catch (error) {
         res.status(400).json({ message: error.message });
