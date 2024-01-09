@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
+const mongoose = require('mongoose');
 
 //mongodb user model
 const User = require('./../models/user')
@@ -152,7 +153,7 @@ router.patch('/profile/659d40da3d8353ff0483fa16', async (req, res) => {
         const { bio } = req.body;
     
         const updatedUser = await User.findByIdAndUpdate(
-          ObjectId(req.params.userId),
+          mongoose.Types.ObjectId(req.params.userId),
           { bio },
           { new: true }
         );
