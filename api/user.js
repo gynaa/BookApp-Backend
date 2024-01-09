@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const cors = require('cors');
 
 //mongodb user model
 const User = require('./../models/user')
@@ -103,6 +104,7 @@ router.post('/signin', (req, res) => {
         //check if user exists
         User.find({email})
         .then(data => {
+            console.log('Retrieved data from MongoDB:', data);
             if (data.length){
                 const hashedPassword = data[0].password;
                 bcrypt.compare(password, hashedPassword).then(result => {
