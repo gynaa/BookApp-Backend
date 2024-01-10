@@ -107,13 +107,15 @@ router.post('/signin', (req, res) => {
         .then(data => {
             console.log('Retrieved data from MongoDB:', data);
             if (data.length){
+
+               
+                const userId = data[0]._id;
                 const hashedPassword = data[0].password;
                 bcrypt.compare(password, hashedPassword).then(result => {
                     if (result) {
                         res.json({
                             status: "SUCCESS",
                             message: "Signin successful",
-                            data: data
                         })
                     }else{
                         res.json({
@@ -148,24 +150,23 @@ router.post('/signin', (req, res) => {
 
 //Profile
 
-router.patch('/profile/659d40da3d8353ff0483fa16', async (req, res) => {
+router.patch('/profile', async (req, res) => {
+
+    let { email, bio } = req.body;
+    let updating = {email: email};
+    let new_bio = {bio, bio}
+
     try {
-        const { bio } = req.body;
-    
-        const updatedUser = await User.findByIdAndUpdate(
-          mongoose.Types.ObjectId(req.params.userId),
-          { bio },
-          { new: true }
-        );
-    
-        if (!updatedUser) {
-          return res.status(404).json({ message: 'User not found' });
-        }
-    
-        res.json(updatedUser);
-      } catch (error) {
-        res.status(400).json({ message: error.message });
-      }
-})
+        const updatedUser = await User.findOneAndUpdate(updating, new_bio);
+
+        // Handle success (send response, etc.)
+        res.status(200).json({ message: 'SUCCESS', user: updatedUser });
+    } catch (error) {
+        // Handle error (send error response, log, etc.)
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }    
+
+});
 
 module.exports = router;
