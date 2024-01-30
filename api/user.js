@@ -153,21 +153,21 @@ router.post('/signin', (req, res) => {
 
 router.patch('/profile', async (req, res) => {
 
-    let { email, bio } = req.body;
+    let { email, bio, author, book } = req.body;
     let updating = {email: email};
-    let new_bio = {bio, bio}
+    let new_bio = {bio, bio};
+    let new_author = {author, author};
+    let new_book = {book, book};
 
     try {
         const updatedUser = await User.findOneAndUpdate(updating, new_bio);
-
-        // Handle success (send response, etc.)
-        res.status(200).json({ message: 'SUCCESS', user: updatedUser });
+        const updatedUser2 = await User.findOneAndUpdate(updating, new_author);
+        const updatedUser3 = await User.findOneAndUpdate(updating, new_book);
+        res.status(200).json({ message: 'SUCCESS', user: updatedUser3 });
     } catch (error) {
-        // Handle error (send error response, log, etc.)
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
     }    
-
 });
 
 module.exports = router;
