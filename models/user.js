@@ -7,8 +7,8 @@ const UserSchema = new Schema({
     password: { type: String, required: true },
     location: { type: String, required: true },
     bio: { type: String, required: false },
-    author: { type: String, required: false },
-    book: { type: String, required: false },
+    favoriteAuthor: { type: String, required: false },
+    favoriteBook: { type: String, required: false },
 });
 
 const User = mongoose.model('User', UserSchema);

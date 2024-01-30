@@ -153,11 +153,11 @@ router.post('/signin', (req, res) => {
 
 router.patch('/profile', async (req, res) => {
 
-    let { email, bio, author, book } = req.body;
+    let { email, bio, favoriteAuthor, favoriteBook } = req.body;
     let updating = {email: email};
     let new_bio = {bio, bio};
-    let new_author = {author, author};
-    let new_book = {book, book};
+    let new_author = {favoriteAuthor, favoriteAuthor};
+    let new_book = {favoriteBook, favoriteBook};
 
     try {
         const updatedUser = await User.findOneAndUpdate(updating, new_bio);
