@@ -170,4 +170,32 @@ router.patch('/profile', async (req, res) => {
     }    
 });
 
+
+// GET route to retrieve favorite book info
+router.get('/profile/userinfo', async (req, res) => {
+    let { email } = req.body; // Assuming you're passing email as a query parameter
+    console.log(email)
+
+    try {
+        const user = await User.findOne({email});
+        console.log(email)
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        const userData = {
+        favoriteBook: user.favoriteBook,
+        favoriteAuthor: user.favoriteAuthor,
+        bio: user.bio,
+        name: user.name,
+        location: user.location
+        };
+
+        res.status(200).json({ userData });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
 module.exports = router;
