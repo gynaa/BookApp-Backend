@@ -172,7 +172,7 @@ router.patch('/profile', async (req, res) => {
 
 
 // GET route to retrieve favorite book info
-router.get('/profile/userinfo', async (req, res) => {
+router.post('/profile/userinfo', async (req, res) => {
     let { email } = req.body; // Assuming you're passing email as a query parameter
     console.log(email)
 
