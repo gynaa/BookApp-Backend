@@ -199,7 +199,8 @@ router.post('/profile/userinfo', async (req, res) => {
         favoriteAuthor: user.favoriteAuthor,
         bio: user.bio,
         name: user.name,
-        location: user.location
+        location: user.location,
+        profileImage: user.profileImage
         };
 
         res.status(200).json({ userData });
@@ -246,8 +247,6 @@ router.post('/uploadImage', async (req, res) => {
         }
     });
 });
-
-
 
 
 
