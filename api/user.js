@@ -267,13 +267,13 @@ router.post('/userinfoimage', async (req, res) => {
         const imageBuffer = user.profileImage.image.data;
         const imageName = user.profileImage.name;
 
-        //console.log("imageBuffer", user.profileImage);
+        console.log("imageBuffer", imageBuffer);
 
-        //const imagePath = path.join('C:\\Users\\Gina Abdelhalim\\Desktop\\login_server', 'uploads', imageName); // Change the directory path as per your requirement
+        const imagePath = path.join('C:\\Users\\Gina Abdelhalim\\Desktop\\login_server', 'uploads', imageName); // Change the directory path as per your requirement
 
-        //fs.writeFileSync(imagePath, imageBuffer);
-
-        res.status(200).json({message: 'SUCCESS', imageBuffer});
+        fs.writeFileSync(imagePath, imageBuffer);
+        const base64Image = `data:image/jpeg;base64,${imageBuffer.toString('base64')}`;
+        res.status(200).json({ base64Image });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
