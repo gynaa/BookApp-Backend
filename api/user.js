@@ -273,7 +273,7 @@ router.post('/userinfoimage', async (req, res) => {
 
         fs.writeFileSync(imagePath, imageBuffer);
 
-        res.status(200).json({imageBuffer});
+        res.status(200).json({message: 'SUCCESS', imageBuffer});
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
