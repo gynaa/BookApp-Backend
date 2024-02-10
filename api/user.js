@@ -2,8 +2,12 @@ const express = require('express');
 const router = express.Router();
 const cors = require('cors');
 const mongoose = require('mongoose');
-const multer =require('multer')
-const Storage = multer.diskStorage({
+const multer =require('multer');
+const fs = require('fs');
+const path = require('path');
+
+
+const Storage = multer.memoryStorage({
     destination: "uploads",
     filename: (req, file, cb) =>{
         cb(null, file.originalname);
@@ -199,8 +203,7 @@ router.post('/profile/userinfo', async (req, res) => {
         favoriteAuthor: user.favoriteAuthor,
         bio: user.bio,
         name: user.name,
-        location: user.location,
-        profileImage: user.profileImage
+        location: user.location
         };
 
         res.status(200).json({ userData });
@@ -229,6 +232,8 @@ router.post('/uploadImage', async (req, res) => {
                 return res.status(404).json({ message: "User not found" });
             }
 
+            console.log(req.file)
+
             // Update the user's profileImage with the uploaded image data
             user.profileImage = {
                 name: req.file.originalname,
@@ -246,6 +251,33 @@ router.post('/uploadImage', async (req, res) => {
             return res.status(500).json({ message: "Error uploading image", error: error });
         }
     });
+});
+
+
+router.post('/userinfoimage', async (req, res) => {
+    let { email } = req.body; // Assuming you're passing email as a query parameter
+
+    try {
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        const imageBuffer = user.profileImage.image.data;
+        const imageName = user.profileImage.name;
+
+        //console.log("imageBuffer", user.profileImage);
+
+        const imagePath = path.join('C:\\Users\\Gina Abdelhalim\\Desktop\\login_server', 'uploads', imageName); // Change the directory path as per your requirement
+
+        fs.writeFileSync(imagePath, imageBuffer);
+
+        res.status(200).json({imageBuffer});
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
 });
 
 
