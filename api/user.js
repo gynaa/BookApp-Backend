@@ -2,6 +2,17 @@ const express = require('express');
 const router = express.Router();
 const cors = require('cors');
 const mongoose = require('mongoose');
+const multer =require('multer')
+const Storage = multer.diskStorage({
+    destination: "uploads",
+    filename: (req, file, cb) =>{
+        cb(null, file.originalname);
+    },
+});
+
+const upload = multer({
+    storage:Storage
+}).single('testImage')
 
 //mongodb user model
 const User = require('./../models/user')
@@ -197,5 +208,47 @@ router.post('/profile/userinfo', async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 });
+
+//post image
+
+router.post('/uploadImage', async (req, res) => {
+
+    // Handle image upload
+    upload(req, res, async (err) => {
+        if (err) {
+            return res.status(500).json({ message: "Error uploading image", error: err });
+        }
+
+        //const email = 'ginahesham@gmail.com';
+        let { email } = req.body; 
+        try {
+            // Find the logged-in user by ID
+            const user = await User.findOne({email});
+            if (!user) {
+                return res.status(404).json({ message: "User not found" });
+            }
+
+            // Update the user's profileImage with the uploaded image data
+            user.profileImage = {
+                name: req.file.originalname,
+                image: {
+                    data: req.file.buffer,
+                    contentType: req.file.mimetype
+                }
+            };
+
+            // Save the user with the updated profileImage
+            await user.save();
+            
+            return res.status(200).json({ message: "Image uploaded successfully" });
+        } catch (error) {
+            return res.status(500).json({ message: "Error uploading image", error: error });
+        }
+    });
+});
+
+
+
+
 
 module.exports = router;
