@@ -269,9 +269,9 @@ router.post('/userinfoimage', async (req, res) => {
 
         console.log("imageBuffer", imageBuffer);
 
-        const imagePath = path.join('C:\\Users\\Gina Abdelhalim\\Desktop\\login_server', 'uploads', imageName); // Change the directory path as per your requirement
+        //const imagePath = path.join('C:\\Users\\Gina Abdelhalim\\Desktop\\login_server', 'uploads', imageName); // Change the directory path as per your requirement
 
-        fs.writeFileSync(imagePath, imageBuffer);
+        //fs.writeFileSync(imagePath, imageBuffer);
         const base64Image = `data:image/jpeg;base64,${imageBuffer.toString('base64')}`;
         res.status(200).json({ base64Image });
     } catch (error) {
