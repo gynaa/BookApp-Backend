@@ -231,7 +231,7 @@ router.post('/uploadImage', async (req, res) => {
                 return res.status(404).json({ message: "User not found" });
             }
 
-            //console.log("Req of upload image:", req)
+            console.log("Req of upload image:", req)
 
             // Update the user's profileImage with the uploaded image data
             user.profileImage = {
@@ -245,7 +245,7 @@ router.post('/uploadImage', async (req, res) => {
             // Save the user with the updated profileImage
             await user.save();
             
-            return res.status(200).json({ req});
+            return res.status(200).json({ message: "Image uploaded successfully" });
         } catch (error) {
             return res.status(500).json({ message: "Error uploading image", error: error });
         }
