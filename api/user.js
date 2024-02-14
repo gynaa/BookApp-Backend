@@ -233,7 +233,7 @@ router.post('/uploadImage', async (req, res) => {
                 return res.status(404).json({ message: "User not found" });
             }
 
-            console.log("Req of upload image:", req)
+            //console.log("Req of upload image:", req)
 
             // Update the user's profileImage with the uploaded image data
             user.profileImage = {
@@ -259,7 +259,7 @@ router.post('/userinfoimage', async (req, res) => {
     //let { email } = req.body; // Assuming you're passing email as a query parameter
 
     let email = 'ginahesham@gmail.com';
-    let {email_casual} = {email: email};
+    let email_casual = {email: email};
 
     try {
         const user = await User.findOne({ email_casual });
