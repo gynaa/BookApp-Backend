@@ -256,10 +256,10 @@ router.post('/uploadImage', async (req, res) => {
 
 //for fetching
 router.post('/userinfoimage', async (req, res) => {
-    //let { email } = req.body; // Assuming you're passing email as a query parameter
+    let { email } = req.body; // Assuming you're passing email as a query parameter
 
-    let email = 'ginahesham@gmail.com';
-    let email_casual = {email: email};
+    //let email = 'ginahesham@gmail.com';
+    //let email_casual = {email: email};
 
     try {
         const user = await User.findOne({ email_casual });
