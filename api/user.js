@@ -218,7 +218,8 @@ router.post('/profile/userinfo', async (req, res) => {
 router.post('/uploadImage', async (req, res) => {
 
     // Handle image upload
-    console.log(req);
+    console.log('UGH');
+    console.log(req.file);
     upload(req, res, async (err) => {
         if (err) {
             return res.status(500).json({ message: "Error uploading image", error: err });
