@@ -227,7 +227,7 @@ router.post('/uploadImage', async (req, res) => {
         let {email} = 'ginahesham@gmail.com';
         try {
             // Find the logged-in user by ID
-            const user = await User.findOne({email});
+            const user = await User.findOne({email:email});
             if (!user) {
                 return res.status(404).json({ message: "User not found" });
             }
