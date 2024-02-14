@@ -223,7 +223,8 @@ router.post('/uploadImage', async (req, res) => {
             return res.status(500).json({ message: "Error uploading image", error: err });
         }
 
-        let { email } = req.body; 
+        //let { email } = req.body; 
+        let {email} = 'ginahesham@gmail.com';
         try {
             // Find the logged-in user by ID
             const user = await User.findOne({email});
