@@ -262,7 +262,7 @@ router.post('/userinfoimage', async (req, res) => {
     //let email_casual = {email: email};
 
     try {
-        const user = await User.findOne({ email_casual });
+        const user = await User.findOne({ email });
 
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
