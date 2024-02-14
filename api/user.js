@@ -189,11 +189,11 @@ router.patch('/profile', async (req, res) => {
 // GET route to retrieve favorite book info
 router.post('/profile/userinfo', async (req, res) => {
     let { email } = req.body; // Assuming you're passing email as a query parameter
-    console.log(email)
+    //console.log(email)
 
     try {
         const user = await User.findOne({email});
-        console.log(email)
+        //console.log(email)
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
@@ -271,7 +271,7 @@ router.post('/userinfoimage', async (req, res) => {
         const imageBuffer = user.profileImage.image.data;
         const imageName = user.profileImage.name;
 
-        console.log("imageBuffer", imageBuffer);
+        //console.log("imageBuffer", imageBuffer);
 
         //const imagePath = path.join('C:\\Users\\Gina Abdelhalim\\Desktop\\login_server', 'uploads', imageName); // Change the directory path as per your requirement
 
