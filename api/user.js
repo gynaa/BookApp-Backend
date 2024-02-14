@@ -224,10 +224,11 @@ router.post('/uploadImage', async (req, res) => {
         }
 
         //let { email } = req.body; 
-        let {email} = 'ginahesham@gmail.com';
+        let email = 'ginahesham@gmail.com';
+        let {email_casual} = {email: email};
         try {
             // Find the logged-in user by ID
-            const user = await User.findOne({email:email});
+            const user = await User.findOne({email_casual});
             if (!user) {
                 return res.status(404).json({ message: "User not found" });
             }
@@ -255,10 +256,13 @@ router.post('/uploadImage', async (req, res) => {
 
 //for fetching
 router.post('/userinfoimage', async (req, res) => {
-    let { email } = req.body; // Assuming you're passing email as a query parameter
+    //let { email } = req.body; // Assuming you're passing email as a query parameter
+
+    let email = 'ginahesham@gmail.com';
+    let {email_casual} = {email: email};
 
     try {
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email_casual });
 
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
