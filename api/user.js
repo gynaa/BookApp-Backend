@@ -237,7 +237,6 @@ router.post('/uploadImage', async (req, res) => {
 
             // Update the user's profileImage with the uploaded image data
             user.profileImage = {
-                name: req.file.originalname,
                 image: {
                     data: req.file.buffer,
                     contentType: req.file.mimetype
