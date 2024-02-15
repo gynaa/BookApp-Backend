@@ -219,12 +219,11 @@ router.post('/uploadImage', async (req, res) => {
 
     // Handle image upload
     console.log('UGH');
-    console.log(req.file);
     upload(req, res, async (err) => {
         if (err) {
             return res.status(500).json({ message: "Error uploading image", error: err });
         }
-
+        console.log(req.file);
         let { email } = req.body; 
         //let email = 'ginahesham@gmail.com';
         //let {email_casual} = {email: email};
