@@ -216,7 +216,7 @@ router.post('/profile/userinfo', async (req, res) => {
 
 //post image
 
-router.post('/uploadImage', upload.single('testImage'), (req, res) => {
+router.post('/uploadImage', upload('testImage'), (req, res) => {
 
     // Handle image upload
     console.log('UGH');
