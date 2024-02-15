@@ -7,12 +7,13 @@ const fs = require('fs');
 const path = require('path');
 
 
-const Storage = multer.memoryStorage({
+const Storage = multer.memoryStorage();
+
+{/* const Storage = multer.memoryStorage({
     destination: "uploads",
     filename: (req, file, cb) =>{
         cb(null, file.originalname);
-    },
-});
+    },});*/}
 
 const upload = multer({
     storage:Storage
@@ -215,7 +216,7 @@ router.post('/profile/userinfo', async (req, res) => {
 
 //post image
 
-router.post('/uploadImage', async (req, res) => {
+router.post('/uploadImage', upload.single('testImage'), (req, res) => {
 
     // Handle image upload
     console.log('UGH');
