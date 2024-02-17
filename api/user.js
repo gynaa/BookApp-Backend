@@ -218,12 +218,16 @@ router.post('/uploadImage', async (req, res) => {
     // Handle image upload
     upload(req, res, async (err) => {
 
-        //let { email } = req.body; 
-        let email = 'ginahesham@gmail.com';
-        let {email_casual} = {email: email};
+        let { email } = req.body.email; 
+        let { name } = req.body.name; 
+        let { type } = req.body.type; 
+        let { uri } = req.body.uri; 
+
+
+
         try {
             // Find the logged-in user by ID
-            const user = await User.findOne({email_casual});
+            const user = await User.findOne({email});
             if (!user) {
                 return res.status(404).json({ message: "User not found" });
             }
@@ -240,10 +244,10 @@ router.post('/uploadImage', async (req, res) => {
             };*/}
 
             user.profileImage = {
-                name: req.body.name,
+                name: name,
                 image: {
-                    data: req.body.uri,
-                    contentType: req.body.type
+                    data: uri,
+                    contentType: type
                 }
             };
 
@@ -259,13 +263,11 @@ router.post('/uploadImage', async (req, res) => {
 
 //for fetching
 router.post('/userinfoimage', async (req, res) => {
-    //let { email } = req.body; // Assuming you're passing email as a query parameter
+    let { email } = req.body; // Assuming you're passing email as a query parameter
 
-    let email = 'ginahesham@gmail.com';
-    let {email_casual} = {email: email};
 
     try {
-        const user = await User.findOne({ email_casual });
+        const user = await User.findOne({ email });
 
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
@@ -279,8 +281,8 @@ router.post('/userinfoimage', async (req, res) => {
         //const imagePath = path.join('C:\\Users\\Gina Abdelhalim\\Desktop\\login_server', 'uploads', imageName); // Change the directory path as per your requirement
 
         //fs.writeFileSync(imagePath, imageBuffer);
-        const base64Image = `data:image/jpeg;base64,${imageBuffer.toString('base64')}`;
-        res.status(200).json({ base64Image });
+        //const base64Image = `data:image/jpeg;base64,${imageBuffer.toString('base64')}`;
+        res.status(200).json({ imageBuffer });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
