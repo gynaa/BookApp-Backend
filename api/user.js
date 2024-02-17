@@ -218,13 +218,8 @@ router.post('/uploadImage', async (req, res) => {
     // Handle image upload
     upload(req, res, async (err) => {
 
-        let { email } = req.body.email; 
-        let { name } = req.body.name; 
-        let { type } = req.body.type; 
-        let { uri } = req.body.uri; 
-
-
-
+        let { email } = req.body; 
+        
         try {
             // Find the logged-in user by ID
             const user = await User.findOne({email});
@@ -235,21 +230,21 @@ router.post('/uploadImage', async (req, res) => {
             console.log("Req of upload image:", req.body)
 
             // Update the user's profileImage with the uploaded image data
-            {/*user.profileImage = {
+            user.profileImage = {
                 name: req.file.originalname,
                 image: {
                     data: req.file.buffer,
                     contentType: req.file.mimetype
                 }
-            };*/}
+            };
 
-            user.profileImage = {
+            {/* user.profileImage = {
                 name: name,
                 image: {
                     data: uri,
                     contentType: type
                 }
-            };
+            }; */}
 
             // Save the user with the updated profileImage
             await user.save();
@@ -281,8 +276,8 @@ router.post('/userinfoimage', async (req, res) => {
         //const imagePath = path.join('C:\\Users\\Gina Abdelhalim\\Desktop\\login_server', 'uploads', imageName); // Change the directory path as per your requirement
 
         //fs.writeFileSync(imagePath, imageBuffer);
-        //const base64Image = `data:image/jpeg;base64,${imageBuffer.toString('base64')}`;
-        res.status(200).json({ imageBuffer });
+        const base64Image = `data:image/jpeg;base64,${imageBuffer.toString('base64')}`;
+        res.status(200).json({ base64Image });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
