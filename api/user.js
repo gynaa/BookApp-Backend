@@ -216,36 +216,37 @@ router.post('/profile/userinfo', async (req, res) => {
 router.post('/uploadImage', async (req, res) => {
 
     // Handle image upload
-    //upload(req, res, async (err) => {})
+    upload(req, res, async (err) => {
 
-    //let { email } = req.body; 
-    let email = 'ginahesham@gmail.com';
-    let {email_casual} = {email: email};
-    try {
-        // Find the logged-in user by ID
-        const user = await User.findOne({email_casual});
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
-
-        console.log("Req of upload image:", req)
-
-        // Update the user's profileImage with the uploaded image data
-        user.profileImage = {
-            name: req.file.originalname,
-            image: {
-                data: req.file.buffer,
-                contentType: req.file.mimetype
+        //let { email } = req.body; 
+        let email = 'ginahesham@gmail.com';
+        let {email_casual} = {email: email};
+        try {
+            // Find the logged-in user by ID
+            const user = await User.findOne({email_casual});
+            if (!user) {
+                return res.status(404).json({ message: "User not found" });
             }
-        };
 
-        // Save the user with the updated profileImage
-        await user.save();
-        
-        return res.status(200).json({ message: "Image uploaded successfully" });
-    } catch (error) {
-        return res.status(500).json({ message: "Error uploading image", error: error });
-    }
+            console.log("Req of upload image:", req)
+
+            // Update the user's profileImage with the uploaded image data
+            user.profileImage = {
+                name: req.file.originalname,
+                image: {
+                    data: req.file.buffer,
+                    contentType: req.file.mimetype
+                }
+            };
+
+            // Save the user with the updated profileImage
+            await user.save();
+            
+            return res.status(200).json({ message: "Image uploaded successfully" });
+        } catch (error) {
+            return res.status(500).json({ message: "Error uploading image", error: error });
+        }
+    });
 });
 
 //for fetching
