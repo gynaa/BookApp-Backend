@@ -11,13 +11,16 @@ const ImageSchema = mongoose.Schema({
         contentType: String
     }
 })
-
-const PostSchema = new Schema({
-    email: { type: String, required: true },
+const SubPostSchema = mongoose.Schema({
     postbio: { type: String, required: false },
     posttitle: { type: String, required: false },
     postauthor: { type: String, required: false },
     bookImage: ImageSchema
+})
+const PostSchema = new Schema({
+    email: { type: String, required: true },
+    allposts: SubPostSchema
+    
 });
 
 

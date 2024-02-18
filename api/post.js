@@ -32,17 +32,20 @@ router.post('/postuploadImage', async (req, res) => {
     if (!post) {
         try {
             const newPost = new Post({
-                email,
-                postbio,
-                posttitle, 
-                postauthor,
-                bookImage: {
-                    name: req.file.originalname,
-                    image: {
-                        data: req.file.buffer,
-                        contentType: req.file.mimetype
+                allposts:{
+                    email,
+                    postbio,
+                    posttitle, 
+                    postauthor,
+                    bookImage: {
+                        name: req.file.originalname,
+                        image: {
+                            data: req.file.buffer,
+                            contentType: req.file.mimetype
+                        }
                     }
                 }
+                
             });
             
             newPost.save().then(result => {
@@ -79,7 +82,7 @@ router.post('/postuploadImage', async (req, res) => {
             }
         };
 
-        post.push(newPost);
+        post.allposts.push(newPost);
         await user.save();
 
         res.json({
