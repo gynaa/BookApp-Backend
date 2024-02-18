@@ -79,7 +79,7 @@ router.post('/postuploadImage', async (req, res) => {
             }
         };
 
-        user.posts.push(newPost);
+        post.push(newPost);
         await user.save();
 
         res.json({
