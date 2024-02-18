@@ -32,8 +32,8 @@ router.post('/postuploadImage', async (req, res) => {
     if (!post) {
         try {
             const newPost = new Post({
+                email,
                 allposts:{
-                    email,
                     postbio,
                     posttitle, 
                     postauthor,
@@ -70,8 +70,8 @@ router.post('/postuploadImage', async (req, res) => {
         
     } else{
         const newPost = {
+            email,
             allposts:{
-                email,
                 postbio,
                 posttitle, 
                 postauthor,
