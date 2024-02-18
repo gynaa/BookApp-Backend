@@ -30,50 +30,42 @@ router.post('/postuploadImage', async (req, res) => {
     let{email, postbio, posttitle, postauthor} = req.body;
     console.log(req.file);
 
-    //let email = 'ginahesham@gmail.com';
-    //let {email_casual} = {email: email};
     try {
-
-        try {
-            const newPost = new Post({
-                email,
-                postbio,
-                posttitle, 
-                postauthor,
-                bookImage: {
-                    name: req.file.originalname,
-                    image: {
-                        data: req.file.buffer,
-                        contentType: req.file.mimetype
-                    }
+        const newPost = new Post({
+            email,
+            postbio,
+            posttitle, 
+            postauthor,
+            bookImage: {
+                name: req.file.originalname,
+                image: {
+                    data: req.file.buffer,
+                    contentType: req.file.mimetype
                 }
-            });
-            
-            newPost.save().then(result => {
-                res.json({
-                    status: "SUCCESS",
-                    message: "Posting successful",
-                    data: result,
-                })
-            })
-            .catch(err => {
-                res.json({
-                    status: "FAILED",
-                    message: "Error while posting post!"
-                })
-            
-            })
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ message: 'Internal server error' });
-        }
-        // Save the user with the updated profileImage
-        await newPost.save();
+            }
+        });
         
-        return res.status(200).json({ message: "Image uploaded successfully" });
+        newPost.save().then(result => {
+            res.json({
+                status: "SUCCESS",
+                message: "Posting successful",
+                data: result,
+            })
+        })
+        .catch(err => {
+            res.json({
+                status: "FAILED",
+                message: "Error while posting post!"
+            })
+        
+        })
     } catch (error) {
-        return res.status(500).json({ message: "Error uploading image", error: error });
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
     }
+    
+    return res.status(200).json({ message: "Image uploaded successfully" });
+
     });
 });
 
