@@ -24,7 +24,7 @@ const bcrypt = require('bcrypt');
 
 
 router.post('/postupload', async (req, res) => {
-    let{email, postbio, posttitle, postauthor, postImage } = req.body;
+    let{email, postbio, posttitle, postauthor} = req.body;
 
 
     try {
@@ -32,8 +32,7 @@ router.post('/postupload', async (req, res) => {
             email,
             postbio,
             posttitle, 
-            postauthor, 
-            postImage
+            postauthor
         });
         
         newPost.save().then(result => {

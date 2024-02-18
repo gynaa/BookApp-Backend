@@ -17,7 +17,6 @@ const PostSchema = new Schema({
     postbio: { type: String, required: false },
     posttitle: { type: String, required: false },
     postauthor: { type: String, required: false },
-    postImage: ImageSchema,
 });
 
 
