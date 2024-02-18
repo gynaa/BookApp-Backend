@@ -28,10 +28,10 @@ router.post('/postuploadImage', async (req, res) => {
     upload(req, res, async (err) => {
 
     let{email, postbio, posttitle, postauthor} = req.body;
-    const post = await Post.findOne({email});
-    if (!post) {
+    //const post = await Post.findOne({email});
+    {/*if (!post) {
         return res.status(404).json({ message: "User not found" });
-    } else{}
+    } else{}*/}
 
     try {
         const newPost = new Post({
