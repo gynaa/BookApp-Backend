@@ -87,7 +87,7 @@ router.post('/postuploadImage', async (req, res) => {
         };
 
         //post.allposts.push(newPost);
-        await newPost.save();
+        newPost.save();
 
         res.json({
             status: "SUCCESS",
