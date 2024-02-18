@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const ImageSchema = mongoose.Schema({
     name:{
         type:String,
-        required: true
+        required: false
     },
     image:{
         data:Buffer,
@@ -17,6 +17,7 @@ const PostSchema = new Schema({
     postbio: { type: String, required: false },
     posttitle: { type: String, required: false },
     postauthor: { type: String, required: false },
+    bookImage: ImageSchema
 });
 
 
