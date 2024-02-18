@@ -87,13 +87,20 @@ router.post('/postuploadImage', async (req, res) => {
         };
 
         //post.allposts.push(newPost);
-        newPost.save();
-
-        res.json({
-            status: "SUCCESS",
-            message: "Posting successful",
-            data: newPost,
-        });
+        newPost.save().then(result => {
+            res.json({
+                status: "SUCCESS",
+                message: "Posting anotha one successful",
+                data: result,
+            })
+        })
+        .catch(err => {
+            res.json({
+                status: "FAILED",
+                message: "Error while posting post anotha one!"
+            })
+        
+        })
     } 
     })
 
