@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.UserRouter();
+const router = express.Router();
 const cors = require('cors');
 const mongoose = require('mongoose');
 const multer =require('multer');
