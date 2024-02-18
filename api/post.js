@@ -28,6 +28,7 @@ router.post('/postuploadImage', async (req, res) => {
     upload(req, res, async (err) => {
 
     let{email, postbio, posttitle, postauthor} = req.body;
+    console.log(req.file);
 
     //let email = 'ginahesham@gmail.com';
     //let {email_casual} = {email: email};
@@ -38,7 +39,14 @@ router.post('/postuploadImage', async (req, res) => {
                 email,
                 postbio,
                 posttitle, 
-                postauthor
+                postauthor,
+                bookImage: {
+                    name: req.file.originalname,
+                    image: {
+                        data: req.file.buffer,
+                        contentType: req.file.mimetype
+                    }
+                }
             });
             
             newPost.save().then(result => {
@@ -59,16 +67,6 @@ router.post('/postuploadImage', async (req, res) => {
             console.error(error);
             res.status(500).json({ message: 'Internal server error' });
         }
-
-        // Update the user's profileImage with the uploaded image data
-        newPost.bookImage = {
-            name: req.file.originalname,
-            image: {
-                data: req.file.buffer,
-                contentType: req.file.mimetype
-            }
-        };
-
         // Save the user with the updated profileImage
         await newPost.save();
         
@@ -79,7 +77,7 @@ router.post('/postuploadImage', async (req, res) => {
     });
 });
 
-router.post('/postupload', async (req, res) => {
+{/*router.post('/postupload', async (req, res) => {
     let{email, postbio, posttitle, postauthor} = req.body;
 
     console.log(req)
@@ -111,7 +109,7 @@ router.post('/postupload', async (req, res) => {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
     }
-});
+}); */}
 
 module.exports = router;
 
