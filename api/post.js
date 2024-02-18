@@ -69,43 +69,22 @@ router.post('/postuploadImage', async (req, res) => {
         
         
     } else{
-        const newPost = {
-            email,
-            allposts:{
-                postbio,
-                posttitle, 
-                postauthor,
-                bookImage: {
-                    name: req.file.originalname,
-                    image: {
-                        data: req.file.buffer,
-                        contentType: req.file.mimetype
-                    }
+        post.allposts.push({
+            postbio,
+            posttitle,
+            postauthor,
+            bookImage: {
+                name: req.file.originalname,
+                image: {
+                    data: req.file.buffer,
+                    contentType: req.file.mimetype
                 }
             }
-            
-        };
+        });
+        await post.save();
 
-        //post.allposts.push(newPost);
-        newPost.save().then(result => {
-            res.json({
-                status: "SUCCESS",
-                message: "Posting anotha one successful",
-                data: result,
-            })
-        })
-        .catch(err => {
-            res.json({
-                status: "FAILED",
-                message: "Error while posting post anotha one!"
-            })
-        
-        })
-    } 
-    })
+    }})});
 
-    
-});
 
 //for fetching
 router.post('/fetchpost', async (req, res) => {
