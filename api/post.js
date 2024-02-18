@@ -6,7 +6,7 @@ const multer =require('multer');
 const fs = require('fs');
 const path = require('path');
 
-const Storage = multer.memoryStorage({
+{/*const Storage = multer.memoryStorage({
     destination: "uploads",
     filename: (req, file, cb) =>{
         cb(null, file.originalname);
@@ -14,7 +14,7 @@ const Storage = multer.memoryStorage({
 
 const upload = multer({
     storage:Storage
-}).single('testImage')
+}).single('testImage')*/}
 
 //mongodb user model
 const Post = require('./../models/post')
@@ -25,6 +25,8 @@ const bcrypt = require('bcrypt');
 
 router.post('/postupload', async (req, res) => {
     let{email, postbio, posttitle, postauthor} = req.body;
+
+    console.log(req)
 
 
     try {
