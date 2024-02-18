@@ -30,48 +30,14 @@ router.post('/postuploadImage', async (req, res) => {
     let{email, postbio, posttitle, postauthor} = req.body;
     const post = await Post.findOne({email});
     if (!post) {
-        try {
-            const newPost = new Post({
-                email,
-                allposts:[{
-                    postbio,
-                    posttitle, 
-                    postauthor,
-                    bookImage: {
-                        name: req.file.originalname,
-                        image: {
-                            data: req.file.buffer,
-                            contentType: req.file.mimetype
-                        }
-                    }
-                }]
-                
-            });
-            
-            newPost.save().then(result => {
-                res.json({
-                    status: "SUCCESS",
-                    message: "Posting successful",
-                    data: result,
-                })
-            })
-            .catch(err => {
-                res.json({
-                    status: "FAILED",
-                    message: "Error while posting post!"
-                })
-            
-            })
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ message: 'Internal server error' });
-        }
-        
-        
-    } else{
-        post.allposts.push({
+        return res.status(404).json({ message: "User not found" });
+    } else{}
+
+    try {
+        const newPost = new Post({
+            email,
             postbio,
-            posttitle,
+            posttitle, 
             postauthor,
             bookImage: {
                 name: req.file.originalname,
@@ -81,10 +47,30 @@ router.post('/postuploadImage', async (req, res) => {
                 }
             }
         });
-        await post.save();
+        
+        newPost.save().then(result => {
+            res.json({
+                status: "SUCCESS",
+                message: "Posting successful",
+                data: result,
+            })
+        })
+        .catch(err => {
+            res.json({
+                status: "FAILED",
+                message: "Error while posting post!"
+            })
+        
+        })
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+    
+    return res.status(200).json({ message: "Image uploaded successfully" });
 
-    }})});
-
+    });
+});
 
 //for fetching
 router.post('/fetchpost', async (req, res) => {
