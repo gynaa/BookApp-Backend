@@ -69,39 +69,42 @@ router.post('/postuploadImage', async (req, res) => {
     });
 });
 
-{/*router.post('/postupload', async (req, res) => {
-    let{email, postbio, posttitle, postauthor} = req.body;
-
-    console.log(req)
-
+//for fetching
+router.post('/fetchpost', async (req, res) => {
+    let { email } = req.body; 
+    const post = await Post.findOne({email});
+    if (!post) {
+        return res.status(404).json({ message: "User not found" });
+    }
 
     try {
-        const newPost = new Post({
-            email,
-            postbio,
-            posttitle, 
-            postauthor
-        });
-        
-        newPost.save().then(result => {
-            res.json({
-                status: "SUCCESS",
-                message: "Posting successful",
-                data: result,
-            })
-        })
-        .catch(err => {
-            res.json({
-                status: "FAILED",
-                message: "Error while posting post!"
-            })
-        
-        })
+       
+        const imageBuffer = post.bookImage.image.data;
+        const base64Image = `data:image/jpeg;base64,${imageBuffer.toString('base64')}`;
+
+        const postData = {
+            postbio: post.postbio,
+            posttitle: post.posttitle,
+            postauthor: post.postauthor,
+            imageBuffer: base64Image
+            };
+    
+        res.status(200).json({ postData });
+
+        //const imageBuffer = user.profileImage.image.data;
+
+        //console.log("imageBuffer", imageBuffer);
+
+        //const imagePath = path.join('C:\\Users\\Gina Abdelhalim\\Desktop\\login_server', 'uploads', imageName); // Change the directory path as per your requirement
+
+        //fs.writeFileSync(imagePath, imageBuffer);
+        //res.status(200).json({ base64Image });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
     }
-}); */}
+});
+
 
 module.exports = router;
 
