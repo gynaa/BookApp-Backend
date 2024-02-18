@@ -70,20 +70,24 @@ router.post('/postuploadImage', async (req, res) => {
         
     } else{
         const newPost = {
-            postbio,
-            posttitle,
-            postauthor,
-            bookImage: {
-                name: req.file.originalname,
-                image: {
-                    data: req.file.buffer,
-                    contentType: req.file.mimetype
+            allposts:{
+                email,
+                postbio,
+                posttitle, 
+                postauthor,
+                bookImage: {
+                    name: req.file.originalname,
+                    image: {
+                        data: req.file.buffer,
+                        contentType: req.file.mimetype
+                    }
                 }
             }
+            
         };
 
-        post.allposts.push(newPost);
-        await user.save();
+        //post.allposts.push(newPost);
+        await newPost.save();
 
         res.json({
             status: "SUCCESS",
