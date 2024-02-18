@@ -33,7 +33,7 @@ router.post('/postuploadImage', async (req, res) => {
         try {
             const newPost = new Post({
                 email,
-                allposts:{
+                allposts:[{
                     postbio,
                     posttitle, 
                     postauthor,
@@ -44,7 +44,7 @@ router.post('/postuploadImage', async (req, res) => {
                             contentType: req.file.mimetype
                         }
                     }
-                }
+                }]
                 
             });
             
