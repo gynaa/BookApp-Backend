@@ -36,7 +36,10 @@ router.post('/postuploadImage', async (req, res) => {
     console.log(req)
 
     try {
-        console.log(req)
+        console.log('HIEEEEEEEEEER')
+        console.log(req.body)
+        console.log(req.file)
+
 
         const newPost = new Post({
             email,
