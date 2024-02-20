@@ -33,12 +33,8 @@ router.post('/postuploadImage', async (req, res) => {
         return res.status(404).json({ message: "User not found" });
     } else{}*/}
 
-    console.log(req)
 
     try {
-        console.log('HIEEEEEEEEEER')
-        console.log(req.body)
-        console.log(req.file)
 
 
         const newPost = new Post({
@@ -91,14 +87,14 @@ router.post('/fetchpost', async (req, res) => {
     }
 
     try {
-       
-        const imageBuffer = post.postData.imageBuffer;
+        console.log(post)
+        const imageBuffer = post.allposts.bookImage.image.data;
         const base64Image = `data:image/jpeg;base64,${imageBuffer.toString('base64')}`;
 
         const postData = {
-            postbio: post.postbio,
-            posttitle: post.posttitle,
-            postauthor: post.postauthor,
+            postbio: post.allposts.postbio,
+            posttitle: post.allposts.posttitle,
+            postauthor: post.allposts.postauthor,
             imageBuffer: base64Image
             };
     
