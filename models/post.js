@@ -12,12 +12,12 @@ const ImageSchema = mongoose.Schema({
     }
 })
 const SubPostSchema = mongoose.Schema({
-    allposts: [{
+    allposts: {
         postbio: { type: String, required: false },
         posttitle: { type: String, required: false } ,
         postauthor: { type: String, required: false },
         bookImage: ImageSchema
-    }],
+    },
    
 })
 const PostSchema = new Schema({

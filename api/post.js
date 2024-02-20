@@ -43,16 +43,19 @@ router.post('/postuploadImage', async (req, res) => {
 
         const newPost = new Post({
             email,
-            postbio,
-            posttitle, 
-            postauthor,
-            bookImage: {
-                name: req.file.originalname,
-                image: {
-                    data: req.file.buffer,
-                    contentType: req.file.mimetype
-                }
+            allposts:{
+                postbio,
+                posttitle, 
+                postauthor,
+                bookImage: {
+                    name: req.file.originalname,
+                    image: {
+                        data: req.file.buffer,
+                        contentType: req.file.mimetype
+                    }
             }
+            }
+            
         });
         
         newPost.save().then(result => {
