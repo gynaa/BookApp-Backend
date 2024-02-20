@@ -81,7 +81,39 @@ router.post('/postuploadImage', async (req, res) => {
 //for fetching
 router.post('/fetchpost', async (req, res) => {
     let { email } = req.body; 
-    const post = await Post.find({email});
+
+    const posts = await Post.find({ email });
+    
+    if (!posts || posts.length === 0) {
+        return res.status(404).json({ message: "No posts found for this user" });
+    }
+
+    try {
+        const postData = posts.map(post => {
+            const imageBuffer = post.allposts.bookImage.image.data;
+            const base64Image = `data:image/jpeg;base64,${imageBuffer.toString('base64')}`;
+
+            return {
+                postbio: post.allposts.postbio,
+                posttitle: post.allposts.posttitle,
+                postauthor: post.allposts.postauthor,
+                imageBuffer: base64Image
+            };
+        });
+    
+    
+        res.status(200).json({ postData });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+
+module.exports = router;
+
+{/*const post = await Post.find({email});
     if (!post) {
         return res.status(404).json({ message: "User not found" });
     }
@@ -96,24 +128,4 @@ router.post('/fetchpost', async (req, res) => {
             posttitle: post.allposts.posttitle,
             postauthor: post.allposts.postauthor,
             imageBuffer: base64Image
-            };
-    
-        res.status(200).json({ postData });
-
-        //const imageBuffer = user.profileImage.image.data;
-
-        //console.log("imageBuffer", imageBuffer);
-
-        //const imagePath = path.join('C:\\Users\\Gina Abdelhalim\\Desktop\\login_server', 'uploads', imageName); // Change the directory path as per your requirement
-
-        //fs.writeFileSync(imagePath, imageBuffer);
-        //res.status(200).json({ base64Image });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Internal server error' });
-    }
-});
-
-
-module.exports = router;
-
+            };*/}
