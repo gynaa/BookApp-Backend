@@ -33,16 +33,18 @@ router.post('/postuploadImage', async (req, res) => {
         return res.status(404).json({ message: "User not found" });
     } else{}*/}
 
-    console.log(req.file)
+    console.log(req)
 
     try {
+        console.log(req)
+
         const newPost = new Post({
             email,
             postbio,
             posttitle, 
             postauthor,
             bookImage: {
-                name: req.file.originalname,
+                name: req.file.name,
                 image: {
                     data: req.file.buffer,
                     contentType: req.file.mimetype
