@@ -44,7 +44,7 @@ router.post('/postuploadImage', async (req, res) => {
             posttitle, 
             postauthor,
             bookImage: {
-                name: req.file.name,
+                name: req.file.originalname,
                 image: {
                     data: req.file.buffer,
                     contentType: req.file.mimetype
