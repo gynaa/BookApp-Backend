@@ -81,7 +81,7 @@ router.post('/postuploadImage', async (req, res) => {
 //for fetching
 router.post('/fetchpost', async (req, res) => {
     let { email } = req.body; 
-    const post = await Post.findOne({email});
+    const post = await Post.find({email});
     if (!post) {
         return res.status(404).json({ message: "User not found" });
     }
