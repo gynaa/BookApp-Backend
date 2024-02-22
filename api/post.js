@@ -120,9 +120,9 @@ router.patch('/updatepost', async (req, res) => {
     let new_book = {postauthor, postauthor};
 
     try {
-        const updatedPost = await Post.findOneAndUpdate(updating, new_bio);
-        const updatedPost2 = await Post.findOneAndUpdate(updating, new_author);
-        const updatedPost3 = await Post.findOneAndUpdate(updating, new_book);
+        const updatedPost = await Post.findOneAndUpdate(updating, allposts.new_bio);
+        const updatedPost2 = await Post.findOneAndUpdate(updating, allposts.new_author);
+        const updatedPost3 = await Post.findOneAndUpdate(updating, allposts.new_book);
         res.status(200).json({ message: 'SUCCESS', post: updatedPost3 });
     } catch (error) {
         console.error(error);
