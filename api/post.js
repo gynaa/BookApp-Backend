@@ -94,6 +94,7 @@ router.post('/fetchpost', async (req, res) => {
             const base64Image = `data:image/jpeg;base64,${imageBuffer.toString('base64')}`;
 
             return {
+                id: post._id,
                 postbio: post.allposts.postbio,
                 posttitle: post.allposts.posttitle,
                 postauthor: post.allposts.postauthor,
