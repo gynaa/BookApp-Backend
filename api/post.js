@@ -114,7 +114,7 @@ router.post('/fetchpost', async (req, res) => {
 router.patch('/updatepost', async (req, res) => {
     const { postid, postbio, posttitle, postauthor } = req.body;
     const filter = {_id: postid};
-    const new_authorpost = {postauthor: postauthor};
+    const new_authorpost = {allposts:{postauthor: postauthor}};
 
     try {
         const updatedPost = await Post.findOneAndUpdate(filter, new_authorpost );
