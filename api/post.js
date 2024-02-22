@@ -111,6 +111,25 @@ router.post('/fetchpost', async (req, res) => {
     }
 });
 
+router.patch('/updatepost', async (req, res) => {
+
+    let{postid, postbio, posttitle, postauthor} = req.body;
+    let updating = {_id: postid};
+    let new_bio = {postbio, postbio};
+    let new_author = {posttitle, posttitle};
+    let new_book = {postauthor, postauthor};
+
+    try {
+        const updatedPost = await Post.findOneAndUpdate(updating, new_bio);
+        const updatedPost2 = await Post.findOneAndUpdate(updating, new_author);
+        const updatedPost3 = await Post.findOneAndUpdate(updating, new_book);
+        res.status(200).json({ message: 'SUCCESS', post: updatedPost3 });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }    
+});
+
 
 module.exports = router;
 
