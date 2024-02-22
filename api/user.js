@@ -118,7 +118,6 @@ router.post('/signin', (req, res) => {
         //check if user exists
         User.find({email})
         .then(data => {
-            console.log('Retrieved data from MongoDB:', data);
             if (data.length){
 
                
@@ -228,7 +227,6 @@ router.post('/uploadImage', async (req, res) => {
             return res.status(404).json({ message: "User not found" });
         }
 
-        console.log("Req of upload image:", req)
 
         // Update the user's profileImage with the uploaded image data
         user.profileImage = {
@@ -266,7 +264,6 @@ router.post('/userinfoimage', async (req, res) => {
         const imageBuffer = user.profileImage.image.data;
         const imageName = user.profileImage.name;
 
-        console.log("imageBuffer", imageBuffer);
 
         //const imagePath = path.join('C:\\Users\\Gina Abdelhalim\\Desktop\\login_server', 'uploads', imageName); // Change the directory path as per your requirement
 

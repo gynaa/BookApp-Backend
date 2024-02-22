@@ -131,7 +131,7 @@ router.patch('/updatepost', async (req, res) => {
     }    
 });
 
-router.post('/deletepost', async (req, res) => {
+router.delete('/deletepost', async (req, res) => {
     const { postid} = req.body;
     const filter = {_id: postid};
     
