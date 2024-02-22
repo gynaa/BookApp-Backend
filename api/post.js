@@ -120,10 +120,15 @@ router.patch('/updatepost', async (req, res) => {
     let new_book = {postauthor, postauthor};
 
     try {
-        const updatedPost = await Post.findOneAndUpdate(updating, allposts.new_bio);
-        const updatedPost2 = await Post.findOneAndUpdate(updating, allposts.new_author);
-        const updatedPost3 = await Post.findOneAndUpdate(updating, allposts.new_book);
-        res.status(200).json({ message: 'SUCCESS', post: updatedPost3 });
+        const updatedPost = await Post.findOneAndUpdate(
+            { _id: postid }, 
+            { $set: { 'allposts.postbio': new_bio } },
+            { $set: { 'allposts.new_author': new_author } },
+            { $set: { 'allposts.new_book': new_book } }, 
+            { new: true } 
+          );
+        
+        res.status(200).json({ message: 'SUCCESS', post: updatedPost });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
