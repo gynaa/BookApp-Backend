@@ -122,7 +122,7 @@ router.patch('/updatepost', async (req, res) => {
     };
 
     try {
-        const updatedPost = await Post.findOneAndUpdate(filter, new_authorpost );
+        const updatedPost = await Post.findOneAndUpdate(filter, new_authorpost, {new: true} );
         
         res.status(200).json({ message: 'SUCCESS', post: updatedPost });
     } catch (error) {
