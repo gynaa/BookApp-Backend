@@ -112,21 +112,20 @@ router.post('/fetchpost', async (req, res) => {
 });
 
 router.patch('/updatepost', async (req, res) => {
-
-    let{postid, postbio, posttitle, postauthor} = req.body;
-    let updating = {_id: postid};
-    let new_bio = {postbio, postbio};
-    let new_author = {posttitle, posttitle};
-    let new_book = {postauthor, postauthor};
+    const { postid, postbio, posttitle, postauthor } = req.body;
 
     try {
         const updatedPost = await Post.findOneAndUpdate(
-            { _id: postid }, 
-            { $set: { 'allposts.postbio': new_bio } },
-            { $set: { 'allposts.new_author': new_author } },
-            { $set: { 'allposts.new_book': new_book } }, 
+            { 'allposts._id': postid }, 
+            {
+                $set: {
+                    'allposts.$.postbio': postbio,
+                    'allposts.$.postauthor': postauthor,
+                    'allposts.$.posttitle': posttitle
+                }
+            },
             { new: true } 
-          );
+        );
         
         res.status(200).json({ message: 'SUCCESS', post: updatedPost });
     } catch (error) {
