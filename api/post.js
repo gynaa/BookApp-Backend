@@ -131,6 +131,21 @@ router.patch('/updatepost', async (req, res) => {
     }    
 });
 
+router.patch('/deletepost', async (req, res) => {
+    const { postid} = req.body;
+    const filter = {_id: postid};
+    
+
+    try {
+        const updatedPost = await Post.findOneAndDelete(filter);
+        
+        res.status(200).json({ message: 'SUCCESS', post: updatedPost });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }    
+});
+
 
 module.exports = router;
 
