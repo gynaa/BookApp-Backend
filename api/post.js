@@ -157,6 +157,7 @@ router.post('/discover', async (req, res) => {
 
             return {
                 id: post._id,
+                email: post.email,
                 postbio: post.allposts.postbio,
                 posttitle: post.allposts.posttitle,
                 postauthor: post.allposts.postauthor,
