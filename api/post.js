@@ -135,7 +135,6 @@ router.delete('/deletepost', async (req, res) => {
     const { postid} = req.body;
     const filter = {_id: postid};
     
-
     try {
         const updatedPost = await Post.findOneAndDelete(filter);
         
@@ -144,6 +143,34 @@ router.delete('/deletepost', async (req, res) => {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
     }    
+});
+
+router.post('/discover', async (req, res) => {
+    let { email } = req.body; 
+
+    const posts = await Post.find({ email: {$ne: email }});    
+
+    try {
+        const postData = posts.map(post => {
+            const imageBuffer = post.allposts.bookImage.image.data;
+            const base64Image = `data:image/jpeg;base64,${imageBuffer.toString('base64')}`;
+
+            return {
+                id: post._id,
+                postbio: post.allposts.postbio,
+                posttitle: post.allposts.posttitle,
+                postauthor: post.allposts.postauthor,
+                imageBuffer: base64Image
+            };
+        });
+    
+    
+        res.status(200).json({ postData });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
 });
 
 
