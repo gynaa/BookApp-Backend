@@ -176,18 +176,25 @@ router.post('/discover', async (req, res) => {
 
 router.post('/findall', async(req, res) => {
 
-    const { keyword} = req.body;
-    console.log(keyword)
-    const posts = Post.find( { $text: { $search: keyword } } )
-    console.log(posts)
+    try {
+        const { keyword } = req.body;
+        console.log(keyword);
 
+        // Await the execution of the query
+        const posts = await Post.find({ $text: { $search: keyword } });
+        console.log(posts);
 
-    if (!posts || posts.length === 0) {
-        return res.status(404).json({ message: "No posts found for this user" });
+        if (!posts || posts.length === 0) {
+            return res.status(404).json({ message: "No posts found for this keyword" });
+        }
+
+        // Send the posts as response
+        res.status(200).json(posts);
+    } catch (error) {
+        console.error('Error searching posts:', error);
+        // Handle error response
+        res.status(500).json({ message: "Internal server error" });
     }
-
-    // Send the posts as response
-    res.status(200).json(posts);
     
 });
 
