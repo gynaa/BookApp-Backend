@@ -174,22 +174,40 @@ router.post('/discover', async (req, res) => {
     }
 });
 
+router.post('/findall', async(req, res) => {
+
+    const keyword = 'poetry';
+    try {
+        const regex = new RegExp(keyword, 'i'); // 'i' flag for case-insensitive search
+
+        // Aggregation pipeline to search across different fields
+        const result = await Post.aggregate([
+            {
+                $match: {
+                    $or: [
+                        { 'email': regex }, // Match email field
+                        { 'allposts.posttitle': regex }, // Match posttitle field inside allposts
+                        { 'allposts.postbio': regex },
+                        { 'allposts.postauthor': regex },
+                    ]
+                }
+            },
+            {
+                $project: {
+                    email: 1,
+                    'allposts.posttitle': 1,
+                    // Add more fields if needed
+                }
+            }
+        ]);
+
+        return result;
+    } catch (error) {
+        console.error('Error searching posts:', error);
+        throw error;
+    }
+});
+
 
 module.exports = router;
 
-{/*const post = await Post.find({email});
-    if (!post) {
-        return res.status(404).json({ message: "User not found" });
-    }
-
-    try {
-        console.log(post)
-        const imageBuffer = post.allposts.bookImage.image.data;
-        const base64Image = `data:image/jpeg;base64,${imageBuffer.toString('base64')}`;
-
-        const postData = {
-            postbio: post.allposts.postbio,
-            posttitle: post.allposts.posttitle,
-            postauthor: post.allposts.postauthor,
-            imageBuffer: base64Image
-            };*/}
