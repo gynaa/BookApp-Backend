@@ -187,14 +187,26 @@ router.post('/findall', async(req, res) => {
             { 'allposts.postauthor': { $regex: keyword, $options: 'i' } }
         ] });
         
-        console.log(posts);
+        const postData = posts.map(post => {
+            const imageBuffer = post.allposts.bookImage.image.data;
+            const base64Image = `data:image/jpeg;base64,${imageBuffer.toString('base64')}`;
+
+            return {
+                id: post._id,
+                email: post.email,
+                postbio: post.allposts.postbio,
+                posttitle: post.allposts.posttitle,
+                postauthor: post.allposts.postauthor,
+                imageBuffer: base64Image
+            };
+        });
 
         if (!posts || posts.length === 0) {
             return res.status(404).json({ message: "No posts found for this keyword" });
         }
 
         // Send the posts as response
-        res.status(200).json(posts);
+        res.status(200).json(postData);
     } catch (error) {
         console.error('Error searching posts:', error);
         // Handle error response
