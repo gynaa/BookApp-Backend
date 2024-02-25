@@ -177,7 +177,11 @@ router.post('/discover', async (req, res) => {
 router.post('/findall', async(req, res) => {
 
     const { keyword} = req.body;
-    const posts = await Post.find({ keyword });
+    console.log(keyword)
+    const posts = Post.find( { $text: { $search: keyword } } )
+    console.log(posts)
+
+
     if (!posts || posts.length === 0) {
         return res.status(404).json({ message: "No posts found for this user" });
     }
