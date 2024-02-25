@@ -176,7 +176,7 @@ router.post('/discover', async (req, res) => {
 
 router.post('/findall', async(req, res) => {
 
-    const keyword = 'poetry';
+    const { keyword} = req.body;
     try {
         const regex = new RegExp(keyword, 'i'); // 'i' flag for case-insensitive search
 
@@ -196,15 +196,15 @@ router.post('/findall', async(req, res) => {
                 $project: {
                     email: 1,
                     'allposts.posttitle': 1,
-                    // Add more fields if needed
+                    'allposts.postbio': 1,
+                    'allposts.postauthor': 1,
                 }
             }
         ]);
-
+        console.log(result);
         return result;
     } catch (error) {
         console.error('Error searching posts:', error);
-        throw error;
     }
 });
 
