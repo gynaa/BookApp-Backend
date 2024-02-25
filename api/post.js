@@ -185,12 +185,10 @@ router.post('/findall', async(req, res) => {
     if (!posts || posts.length === 0) {
         return res.status(404).json({ message: "No posts found for this user" });
     }
-    try {
-        
-        console.log(posts);
-    } catch (error) {
-        console.error('Error searching posts:', error);
-    }
+
+    // Send the posts as response
+    res.status(200).json(posts);
+    
 });
 
 
