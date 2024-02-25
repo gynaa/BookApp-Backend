@@ -180,9 +180,9 @@ router.post('/findall', async(req, res) => {
         const { keyword } = req.body;
         console.log(keyword);
         
-        const lookpost = {allposts:{postbio}};
         // Await the execution of the query
-        const posts = await Post.find(keyword, lookpost);
+        const posts = await Post.find({ 'allposts.postbio': { $regex: keyword, $options: 'i' } });
+
         console.log(posts);
 
         if (!posts || posts.length === 0) {
