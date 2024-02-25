@@ -177,32 +177,13 @@ router.post('/discover', async (req, res) => {
 router.post('/findall', async(req, res) => {
 
     const { keyword} = req.body;
+    const posts = await Post.find({ keyword });
+    if (!posts || posts.length === 0) {
+        return res.status(404).json({ message: "No posts found for this user" });
+    }
     try {
-        const regex = new RegExp(keyword, 'i'); // 'i' flag for case-insensitive search
-
-        // Aggregation pipeline to search across different fields
-        const result = await Post.aggregate([
-            {
-                $match: {
-                    $or: [
-                        { 'email': regex }, // Match email field
-                        { 'allposts.posttitle': regex }, // Match posttitle field inside allposts
-                        { 'allposts.postbio': regex },
-                        { 'allposts.postauthor': regex },
-                    ]
-                }
-            },
-            {
-                $project: {
-                    email: 1,
-                    'allposts.posttitle': 1,
-                    'allposts.postbio': 1,
-                    'allposts.postauthor': 1,
-                }
-            }
-        ]);
-        console.log(result);
-        return result;
+        
+        console.log(posts);
     } catch (error) {
         console.error('Error searching posts:', error);
     }
