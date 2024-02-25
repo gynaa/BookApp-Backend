@@ -181,7 +181,7 @@ router.post('/findall', async(req, res) => {
         console.log(keyword);
 
         // Await the execution of the query
-        const posts = await Post.find({ $text: { $search: keyword } });
+        const posts = await Post.find({allposts:{postbio:keyword}});
         console.log(posts);
 
         if (!posts || posts.length === 0) {
