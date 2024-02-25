@@ -181,8 +181,12 @@ router.post('/findall', async(req, res) => {
         console.log(keyword);
         
         // Await the execution of the query
-        const posts = await Post.find({ 'allposts.postbio': { $regex: keyword, $options: 'i' } });
-
+        const posts = await Post.find({ $or: [
+            { 'allposts.postbio': { $regex: keyword, $options: 'i' } },
+            { 'allposts.posttitle': { $regex: keyword, $options: 'i' } },
+            { 'allposts.postauthor': { $regex: keyword, $options: 'i' } }
+        ] });
+        
         console.log(posts);
 
         if (!posts || posts.length === 0) {
