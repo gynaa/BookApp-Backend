@@ -15,6 +15,8 @@ const SubPostSchema = mongoose.Schema({
         postbio: { type: String, required: false },
         posttitle: { type: String, required: false } ,
         postauthor: { type: String, required: false },
+        genre: { type: String, required: false },
+        dowhat: { type: String, required: false },
         bookImage: ImageSchema
    
 });

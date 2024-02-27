@@ -43,6 +43,8 @@ router.post('/postuploadImage', async (req, res) => {
                 postbio,
                 posttitle, 
                 postauthor,
+                genre,
+                dowhat,
                 bookImage: {
                     name: req.file.originalname,
                     image: {
@@ -178,7 +180,6 @@ router.post('/findall', async(req, res) => {
 
     try {
         const { keyword } = req.body;
-        console.log(keyword);
         
         // Await the execution of the query
         const posts = await Post.find({ $or: [
