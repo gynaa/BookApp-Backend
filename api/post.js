@@ -100,6 +100,8 @@ router.post('/fetchpost', async (req, res) => {
                 postbio: post.allposts.postbio,
                 posttitle: post.allposts.posttitle,
                 postauthor: post.allposts.postauthor,
+                genre: post.allposts.genre,
+                dowhat: post.allposts.dowhat,
                 imageBuffer: base64Image
             };
         });
@@ -163,6 +165,8 @@ router.post('/discover', async (req, res) => {
                 postbio: post.allposts.postbio,
                 posttitle: post.allposts.posttitle,
                 postauthor: post.allposts.postauthor,
+                genre: post.allposts.genre,
+                dowhat: post.allposts.dowhat,
                 imageBuffer: base64Image
             };
         });
@@ -185,7 +189,9 @@ router.post('/findall', async(req, res) => {
         const posts = await Post.find({ $or: [
             { 'allposts.postbio': { $regex: keyword, $options: 'i' } },
             { 'allposts.posttitle': { $regex: keyword, $options: 'i' } },
-            { 'allposts.postauthor': { $regex: keyword, $options: 'i' } }
+            { 'allposts.postauthor': { $regex: keyword, $options: 'i' } },
+            { 'allposts.genre': { $regex: keyword, $options: 'i' } },
+            { 'allposts.dowhat': { $regex: keyword, $options: 'i' } }
         ] });
         
         const postData = posts.map(post => {
@@ -198,6 +204,8 @@ router.post('/findall', async(req, res) => {
                 postbio: post.allposts.postbio,
                 posttitle: post.allposts.posttitle,
                 postauthor: post.allposts.postauthor,
+                genre: post.allposts.genre,
+                dowhat: post.allposts.dowhat,
                 imageBuffer: base64Image
             };
         });
