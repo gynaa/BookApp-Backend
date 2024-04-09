@@ -1,0 +1,1 @@
+This is the backend to a project I am working on. It includes classic social app functionalities such as creating an account, logging in, sharing posts, searching for content etc. At the moment it is still a work in progress. 
