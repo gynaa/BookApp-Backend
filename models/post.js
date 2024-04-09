@@ -24,7 +24,9 @@ const PostSchema = new Schema({
     email: { type: String, required: true },
     allposts: SubPostSchema
     
-});
+},
+    {timestamps: true}
+);
 
 
 
